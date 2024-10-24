@@ -1,14 +1,12 @@
 #include "frmregister.h"
-#include "qapplication.h"
+#include "qthelper.h" // 这里可以导入你自己的Qt辅助函数
+#include "appinit.h"
 
 FrmRegister::FrmRegister(QWidget *parent) : QWidget(parent) {
     this->initForm();
     this->initText();
     this->initAction();
-    // 替代 setFormInCenter
-    QDesktopWidget *desktop = QApplication::desktop();
-    move((desktop->width() - this->width()) / 2, (desktop->height() - this->height()) / 2);
-
+    QtHelper::setFormInCenter(this); // 将窗口居中
 }
 
 FrmRegister::~FrmRegister() {
