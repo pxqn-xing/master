@@ -1,10 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - 学生信息管理系统</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            background-image: url('./background.jpeg'); /* 替换为你的背景图路径 */
+            background-size: cover; /* 使背景图覆盖整个页面 */
+            background-position: center; /* 背景图居中 */
+            background-repeat: no-repeat; /* 不重复背景图 */
+            height: 100vh; /* 使 body 高度为视口高度 */
+            margin: 0; /* 去掉默认边距 */
+        }
+        .login-container {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .login-container h2 {
+            margin-bottom: 20px;
+        }
+        .login-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .login-container button {
+            width: 48%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-container button.login {
+            background-color: #28a745;
+            color: white;
+        }
+        .login-container button.cancel {
+            background-color: #dc3545;
+            color: white;
+        }
+        .login-container button.register {
+            background-color: #007bff;
+            color: white;
+            width: 100%; /* 使注册按钮占满一行 */
+        }
+    </style>
 </head>
 <body>
-$END$
+
+<div class="login-container">
+    <h2>登录 - 学生信息管理系统</h2>
+    <label for="username">用户名:</label>
+    <input type="text" id="username" value="admin">
+
+    <label for="password">密码:</label>
+    <input type="password" id="password" value="admin">
+
+    <button class="login" onclick="onLoginClicked()">登录</button>
+    <button class="cancel" onclick="onCancelClicked()">取消</button>
+    <button class="register" onclick="onRegisterClicked()">注册</button> <!-- 注册按钮 -->
+
+</div>
+
+
+<script>
+    function onLoginClicked() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        // 验证用户名和密码
+        if (username === 'admin' && password === 'admin') {
+            alert('登录成功！'); // 登录成功提示
+            // 这里可以添加跳转到其他页面的逻辑
+            window.location.href = 'content.html'; // 登录成功后跳转
+        } else {
+            alert('用户名或密码不正确！'); // 登录失败提示
+        }
+    }
+
+    function onCancelClicked() {
+        // 取消操作时关闭窗口
+        window.close(); // 注意：在某些浏览器中，可能无法直接关闭窗口
+    }
+
+    function onRegisterClicked() {
+        // 点击注册按钮时跳转到注册页面
+        window.location.href = 'register.html'; // 将此处改为实际注册页面路径
+    }
+</script>
+
 </body>
 </html>
