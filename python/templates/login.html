@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - 学生信息管理系统</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            background-image: url('./background.jpeg'); /* 替换为你的背景图路径 */
+            background-size: cover; /* 使背景图覆盖整个页面 */
+            background-position: center; /* 背景图居中 */
+            background-repeat: no-repeat; /* 不重复背景图 */
+            height: 100vh; /* 使 body 高度为视口高度 */
+            margin: 0; /* 去掉默认边距 */
+        }
+        .login-container {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .login-container h2 {
+            margin-bottom: 20px;
+        }
+        .login-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .login-container button {
+            width: 48%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-container button.login {
+            background-color: #28a745;
+            color: white;
+        }
+        .login-container button.cancel {
+            background-color: #dc3545;
+            color: white;
+        }
+        .login-container button.register {
+            background-color: #007bff;
+            color: white;
+            width: 100%; /* 使注册按钮占满一行 */
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>登录 - 学生信息管理系统</h2>
+    <label for="username">用户名:</label>
+    <input type="text" id="username" required>
+
+    <label for="password">密码:</label>
+    <input type="password" id="password" required>
+
+    <button class="login" onclick="onLoginClicked()">登录</button>
+    <button class="cancel" onclick="onCancelClicked()">取消</button>
+    <button class="register" onclick="onRegisterClicked()">注册</button>
+</div>
+
+<script>
+    // 登录按钮的点击事件
+    function onLoginClicked() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        // 验证用户名和密码不能为空
+        if (username === '' || password === '') {
+            alert('请填写用户名和密码！');
+            return;
+        }
+
+        // 向后端发送POST请求验证用户登录
+        fetch('http://localhost:5000/login', {  // 假设后端接口是 /login
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('登录成功！');
+                window.location.href = 'students_info.html';  // 登录成功后跳转
+            } else {
+                alert(data.message || '登录失败！');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('登录请求失败！');
+        });
+    }
+
+    // 取消按钮的点击事件
+    function onCancelClicked() {
+        window.close(); // 关闭窗口
+    }
+
+    // 注册按钮的点击事件
+    function onRegisterClicked() {
+        window.location.href = 'register.html'; // 跳转到注册页面
+    }
+</script>
+
+</body>
+</html>

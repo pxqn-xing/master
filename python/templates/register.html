@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册 - 学生信息管理系统</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            background-image: url('./background.jpeg'); /* 替换为你的背景图路径 */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+        }
+        .register-container {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .register-container h2 {
+            margin-bottom: 20px;
+        }
+        .register-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .register-container button {
+            width: 48%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .register-container button.submit {
+            background-color: #007bff;
+            color: white;
+        }
+        .register-container button.cancel {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="register-container">
+    <h2>注册 - 学生信息管理系统</h2>
+    <label for="username">用户名:</label>
+    <input type="text" id="username" required>
+
+    <label for="password">密码:</label>
+    <input type="password" id="password" required>
+
+    <label for="confirmPassword">确认密码:</label>
+    <input type="password" id="confirmPassword" required>
+
+    <button class="submit" onclick="onRegisterClicked()">注册</button>
+    <button class="cancel" onclick="onCancelClicked()">取消</button>
+</div>
+
+<script>
+    // 注册按钮的点击事件
+    function onRegisterClicked() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        // 验证输入
+        if (username === '' || password === '' || confirmPassword === '') {
+            alert('请填写所有字段！');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            alert('密码和确认密码不匹配！');
+            return;
+        }
+
+        // 向后端发送注册请求
+        fetch('http://localhost:5000/register', {  // 假设后端接口是 /register
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('注册成功！');
+                window.location.href = 'login.html'; // 注册成功后跳转到登录页面
+            } else {
+                alert(data.message || '注册失败！');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('注册请求失败！');
+        });
+    }
+
+    // 取消按钮的点击事件
+    function onCancelClicked() {
+        window.close(); // 取消操作时关闭窗口
+    }
+</script>
+
+</body>
+</html>
