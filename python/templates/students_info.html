@@ -126,104 +126,71 @@
     </div>
 
     <script>
-        let currentPage = 1;
+// 显示学生信息列表
+function loadStudentData(page = 1) {
+    fetch(`http://localhost:5000/students/${page}`)
+        .then(response => response.json())
+        .then(data => {
+            const studentTableBody = document.getElementById('studentTableBody');
+            studentTableBody.innerHTML = '';  // 清空表格
 
-        // 显示学生信息列表
-        function loadStudentData(page = 1) {
-            fetch(`http://localhost:5000/students?page=${page}`)
-                .then(response => response.json())
-                .then(data => {
-                    const studentTableBody = document.getElementById('studentTableBody');
-                    studentTableBody.innerHTML = '';  // 清空表格
-
-                    data.students.forEach(student => {
-                        const row = studentTableBody.insertRow();
-                        row.insertCell(0).textContent = student.studentId;
-                        row.insertCell(1).textContent = student.studentName;
-                        row.insertCell(2).textContent = student.college;
-                        row.insertCell(3).textContent = student.major;
-                        row.insertCell(4).textContent = student.contact;
-                        row.insertCell(5).textContent = student.address;
-                        row.insertCell(6).textContent = student.parentContact;
-                        row.insertCell(7).innerHTML = `<button onclick="deleteStudentInfo(${student.id})">删除</button>`;
-                    });
-                })
-                .catch(error => console.error('Error loading student data:', error));
-        }
-
-        // 增加学生信息
-        document.getElementById('studentForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const studentData = {
-                studentId: document.getElementById('studentId').value,
-                studentName: document.getElementById('studentName').value,
-                college: document.getElementById('college').value,
-                major: document.getElementById('major').value,
-                contact: document.getElementById('contact').value,
-                address: document.getElementById('address').value,
-                parentContact: document.getElementById('parentContact').value
-            };
-
-            fetch('http://localhost:5000/students', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(studentData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert('学生信息已添加');
-                closeModal();
-                loadStudentData(currentPage); // 刷新学生信息列表
-            })
-            .catch(error => {
-                alert('添加学生信息失败');
-                console.error('Error:', error);
+            data.students.forEach(student => {
+                const row = studentTableBody.insertRow();
+                row.insertCell(0).textContent = student.studentId;
+                row.insertCell(1).textContent = student.studentName;
+                row.insertCell(2).textContent = student.college;
+                row.insertCell(3).textContent = student.major;
+                row.insertCell(4).textContent = student.contact;
+                row.insertCell(5).textContent = student.address;
+                row.insertCell(6).textContent = student.parentContact;
+                row.insertCell(7).innerHTML = `<button onclick="deleteStudentInfo(${student.id})">删除</button>`;
             });
-        });
 
-        // 删除学生信息
-        function deleteStudentInfo(studentId) {
-            fetch(`http://localhost:5000/students/${studentId}`, {
-                method: 'DELETE'
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert('学生信息已删除');
-                loadStudentData(currentPage); // 刷新学生信息列表
-            })
-            .catch(error => {
-                alert('删除学生信息失败');
-                console.error('Error:', error);
-            });
-        }
+            // 更新分页按钮
+            updatePaginationButtons(data.pagination);
+        })
+        .catch(error => console.error('Error loading student data:', error));
+}
 
-        // 显示添加学生信息的弹窗
-        function showAddStudentModal() {
-            document.getElementById('myModal').style.display = "block";
-        }
+// 更新分页按钮
+function updatePaginationButtons(pagination) {
+    const prevButton = document.querySelector('button[onclick="showPreviousPage()"]');
+    const nextButton = document.querySelector('button[onclick="showNextPage()"]');
 
-        // 关闭弹窗
-        function closeModal() {
-            document.getElementById('myModal').style.display = "none";
-        }
+    // 更新上一页按钮
+    if (pagination.has_prev) {
+        prevButton.disabled = false;
+    } else {
+        prevButton.disabled = true;
+    }
 
-        // 分页功能
-        function showPreviousPage() {
-            if (currentPage > 1) {
-                currentPage--;
-                loadStudentData(currentPage);
-            } else {
-                alert('已经是第一页了');
-            }
-        }
+    // 更新下一页按钮
+    if (pagination.has_next) {
+        nextButton.disabled = false;
+    } else {
+        nextButton.disabled = true;
+    }
 
-        function showNextPage() {
-            currentPage++;
-            loadStudentData(currentPage);
-        }
+    // 更新当前页和总页数显示
+    const pageInfo = document.querySelector('.pagination-info');
+    pageInfo.textContent = `第 ${pagination.current_page} 页 / 共 ${pagination.total_pages} 页`;
+}
 
-        // 初始加载第一页的学生信息
+// 分页功能
+function showPreviousPage() {
+    if (currentPage > 1) {
+        currentPage--;
         loadStudentData(currentPage);
+    } else {
+        alert('已经是第一页了');
+    }
+}
+
+function showNextPage() {
+    currentPage++;
+    loadStudentData(currentPage);
+}
+
     </script>
 
 </body>
