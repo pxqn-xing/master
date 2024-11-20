@@ -102,7 +102,7 @@
         .then(data => {
             if (data.success) {
                 alert('注册成功！');
-                window.location.href = 'login.html'; // 注册成功后跳转到登录页面
+                window.location.href = '/login'; // 注册成功后跳转到登录页面
             } else {
                 alert(data.message || '注册失败！');
             }
@@ -115,7 +115,7 @@
 
     // 取消按钮的点击事件
     function onCancelClicked() {
-        window.close(); // 取消操作时关闭窗口
+        window.location.href = '/login'; // 取消操作时关闭窗口
     }
 </script>
 
