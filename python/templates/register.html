@@ -12,11 +12,10 @@
             align-items: center;
             height: 100vh;
             background-color: #f4f4f4;
-            background-image: url('/static/images/background.jpeg'); /* 替换为你的背景图路径 */
+            background-image: url('/static/images/background.jpeg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            height: 100vh;
             margin: 0;
         }
         .register-container {
@@ -24,9 +23,16 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
         }
         .register-container h2 {
             margin-bottom: 20px;
+            text-align: center;
+        }
+        .register-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
         }
         .register-container input {
             width: 100%;
@@ -34,6 +40,11 @@
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
+        }
+        .register-container .error {
+            color: red;
+            font-size: 0.9em;
+            display: none; /* 默认隐藏错误信息 */
         }
         .register-container button {
             width: 48%;
@@ -56,67 +67,51 @@
 
 <div class="register-container">
     <h2>注册 - 学生信息管理系统</h2>
-    <label for="username">用户名:</label>
-    <input type="text" id="username" required>
+    <!-- 表单 -->
+    <form method="POST" action="/register">
+        <label for="username">用户名:</label>
+        <input type="text" id="username" name="username" required>
 
-    <label for="password">密码:</label>
-    <input type="password" id="password" required>
+        <label for="password">密码:</label>
+        <input type="password" id="password" name="password" required minlength="6">
 
-    <label for="confirmPassword">确认密码:</label>
-    <input type="password" id="confirmPassword" required>
+        <label for="confirm_password">确认密码:</label>
+        <input type="password" id="confirm_password" name="confirm_password" required minlength="6">
 
-    <button class="submit" onclick="onRegisterClicked()">注册</button>
-    <button class="cancel" onclick="onCancelClicked()">取消</button>
+        <!-- 错误提示区域 -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="error">
+                    {% for category, message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- 按钮 -->
+        <div style="display: flex; justify-content: space-between;">
+            <button type="submit" class="submit">注册</button>
+            <button type="button" class="cancel" onclick="onCancelClicked()">取消</button>
+        </div>
+    </form>
 </div>
 
 <script>
-    // 注册按钮的点击事件
-    function onRegisterClicked() {
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-
-        // 验证输入
-        if (username === '' || password === '' || confirmPassword === '') {
-            alert('请填写所有字段！');
-            return;
-        }
-
-        if (password !== confirmPassword) {
-            alert('密码和确认密码不匹配！');
-            return;
-        }
-
-        // 向后端发送注册请求
-        fetch('http://localhost:5000/register', {  // 假设后端接口是 /register
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('注册成功！');
-                window.location.href = '/login'; // 注册成功后跳转到登录页面
-            } else {
-                alert(data.message || '注册失败！');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('注册请求失败！');
-        });
-    }
-
-    // 取消按钮的点击事件
+    // 取消按钮点击事件
     function onCancelClicked() {
-        window.location.href = '/login'; // 取消操作时关闭窗口
+        window.location.href = '/'; // 返回到登录页面
     }
+
+    // 注册成功后，跳转到登录页面
+    window.onload = function() {
+        const flashMessages = document.querySelector('.error');
+        if (flashMessages) {
+            setTimeout(function() {
+                window.location.href = '/'; // 注册成功后跳转到登录页面
+            }, 2000); // 延时2秒后跳转
+        }
+    };
 </script>
 
 </body>

@@ -10,36 +10,51 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             background-color: #f4f4f4;
             background-image: url('/static/images/background.jpeg'); /* 替换为你的背景图路径 */
-            background-size: cover; /* 使背景图覆盖整个页面 */
-            background-position: center; /* 背景图居中 */
-            background-repeat: no-repeat; /* 不重复背景图 */
-            height: 100vh; /* 使 body 高度为视口高度 */
-            margin: 0; /* 去掉默认边距 */
+            background-size: cover; /* 背景图覆盖整个页面 */
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh; /* 视口高度 */
+            margin: 0;
         }
         .login-container {
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.9); /* 半透明背景 */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
         }
         .login-container h2 {
+            text-align: center;
             margin-bottom: 20px;
+            color: #333;
+        }
+        .login-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
         }
         .login-container input {
             width: 100%;
             padding: 10px;
-            margin: 10px 0;
+            margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            font-size: 16px;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
         }
         .login-container button {
             width: 48%;
             padding: 10px;
             border: none;
             border-radius: 5px;
+            font-size: 16px;
             cursor: pointer;
         }
         .login-container button.login {
@@ -53,7 +68,11 @@
         .login-container button.register {
             background-color: #007bff;
             color: white;
-            width: 100%; /* 使注册按钮占满一行 */
+            width: 100%; /* 注册按钮独占一行 */
+            margin-top: 10px;
+        }
+        .login-container button:hover {
+            opacity: 0.9;
         }
     </style>
 </head>
@@ -61,61 +80,62 @@
 
 <div class="login-container">
     <h2>登录 - 学生信息管理系统</h2>
-    <label for="username">用户名:</label>
-    <input type="text" id="username" required>
+    <form onsubmit="onLoginClicked(event)">
+        <label for="username">用户名:</label>
+        <input type="text" id="username" name="username" placeholder="请输入用户名" required>
 
-    <label for="password">密码:</label>
-    <input type="password" id="password" required>
+        <label for="password">密码:</label>
+        <input type="password" id="password" name="password" placeholder="请输入密码" required>
 
-    <button class="login" onclick="onLoginClicked()">登录</button>
-    <button class="cancel" onclick="onCancelClicked()">取消</button>
-    <button class="register" onclick="onRegisterClicked()">注册</button>
+        <div class="button-group">
+            <button type="button" class="cancel" onclick="onCancelClicked()">取消</button>
+            <button type="submit" class="login">登录</button>
+        </div>
+        <button type="button" class="register" onclick="onRegisterClicked()">注册</button>
+    </form>
 </div>
 
 <script>
-    // 登录按钮的点击事件
-    function onLoginClicked() {
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
+    // 登录表单提交事件
+    function onLoginClicked(event) {
+        event.preventDefault(); // 阻止表单默认提交
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
 
-        // 验证用户名和密码不能为空
-        if (username === '' || password === '') {
-            alert('请填写用户名和密码！');
+        if (!username || !password) {
+            alert('用户名和密码不能为空！');
             return;
         }
 
-        // 向后端发送POST请求验证用户登录
-        fetch('http://localhost:5000/login', {  // 假设后端接口是 /login
+        fetch('http://localhost:5000/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                username: username,
-                password: password
-            })
+            body: JSON.stringify({ username, password }),
         })
         .then(response => response.json())
         .then(data => {
+            console.log(data); // 打印返回的数据
             if (data.success) {
                 alert('登录成功！');
-                window.location.href = '/students_info';  // 登录成功后跳转
+                window.location.href = '/students'; // 跳转到学生信息管理页面
             } else {
-                alert(data.message || '登录失败！');
+                alert(data.message || '登录失败，请检查用户名或密码！');
             }
         })
         .catch(error => {
-            console.error('Error:', error);
-            alert('登录请求失败！');
+            console.error('登录请求失败:', error);
+            alert('登录请求失败，请稍后再试！');
         });
     }
 
-    // 取消按钮的点击事件
+    // 取消按钮点击事件
     function onCancelClicked() {
-        window.close(); // 关闭窗口
+        window.location.reload(); // 刷新页面
     }
 
-    // 注册按钮的点击事件
+    // 注册按钮点击事件
     function onRegisterClicked() {
         window.location.href = '/register'; // 跳转到注册页面
     }
