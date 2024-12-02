@@ -3,41 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>修改教师</title>
+    <title>修改教师信息</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .container {
+            max-width: 800px;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-4">
-        <h1>修改教师信息</h1>
+        <h1 class="mb-4">修改教师信息</h1>
+
+        <!-- 提示信息 -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alert alert-success" role="alert">
+                    {% for category, message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
 
         <form method="POST">
+            <!-- 姓名字段 -->
             <div class="form-group">
                 <label for="name">姓名</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ teacher.name }}" required>
+                <input type="text" class="form-control" name="name" value="{{ teacher.name }}" required>
             </div>
 
+            <!-- 性别字段 -->
             <div class="form-group">
                 <label for="gender">性别</label>
                 <select class="form-control" id="gender" name="gender" required>
-                    <option value="M" {% if teacher.gender == 'M' %}selected{% endif %}>男</option>
-                    <option value="F" {% if teacher.gender == 'F' %}selected{% endif %}>女</option>
+                    <option value="男" {% if teacher.gender == 'M' %}selected{% endif %}>男</option>
+                    <option value="女" {% if teacher.gender == 'F' %}selected{% endif %}>女</option>
                 </select>
             </div>
 
+            <!-- 邮箱字段 -->
             <div class="form-group">
                 <label for="email">邮箱</label>
                 <input type="email" class="form-control" id="email" name="email" value="{{ teacher.email }}" required>
             </div>
 
+            <!-- 学院字段 -->
             <div class="form-group">
                 <label for="academy">学院</label>
                 <input type="text" class="form-control" id="academy" name="academy" value="{{ teacher.academy }}" required>
             </div>
 
-            <button type="submit" class="btn btn-primary">提交</button>
+            <!-- 提交按钮 -->
+            <button type="submit" class="btn btn-primary">提交修改</button>
+            <a href="{{ url_for('teacher.teachers_list') }}" class="btn btn-secondary ml-2">返回教师列表</a>
         </form>
     </div>
 
+    <!-- Bootstrap 4 JS 依赖文件 -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
