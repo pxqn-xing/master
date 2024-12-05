@@ -1,29 +1,48 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>修改学生信息</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-    <h2>修改学生信息</h2>
-    <form method="POST">
-        <label for="name">姓名:</label><br>
-        <input type="text" id="name" name="name" value="{{ student.name }}" required><br><br>
+    <div class="container mt-4">
+        <h1>修改学生信息</h1>
 
-        <label for="gender">性别:</label><br>
-        <input type="text" id="gender" name="gender" value="{{ student.gender }}" required><br><br>
+        <form method="POST">
+            <div class="form-group">
+                <label for="name">姓名</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ student.name }}" required>
+            </div>
 
-        <label for="email">电子邮箱:</label><br>
-        <input type="email" id="email" name="email" value="{{ student.email }}" required><br><br>
+            <div class="form-group">
+                <label for="gender">性别</label>
+                <input type="text" class="form-control" id="gender" name="gender" value="{{ student.gender }}" required>
+            </div>
 
-        <label for="academy">学院:</label><br>
-        <input type="text" id="academy" name="academy" value="{{ student.academy }}" required><br><br>
+            <div class="form-group">
+                <label for="email">电子邮箱</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ student.email }}" required>
+            </div>
 
-        <label for="major">专业:</label><br>
-        <input type="text" id="major" name="major" value="{{ student.major }}" required><br><br>
+            <div class="form-group">
+                <label for="academy">学院</label>
+                <input type="text" class="form-control" id="academy" name="academy" value="{{ student.academy }}" required>
+            </div>
 
-        <input type="submit" value="修改学生">
-    </form>
+            <div class="form-group">
+                <label for="major">专业</label>
+                <input type="text" class="form-control" id="major" name="major" value="{{ student.major }}" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">提交修改</button>
+            <a href="{{ url_for('student.students_list') }}" class="btn btn-secondary ml-2">取消</a>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
