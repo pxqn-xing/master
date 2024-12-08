@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择查看的信息</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>欢迎，选择你要查看的信息</h2>
+
+        <div class="list-group">
+            <a href="{{ url_for('students_info') }}" class="list-group-item list-group-item-action">学生信息</a>
+            <a href="{{ url_for('teachers_info') }}" class="list-group-item list-group-item-action">教师信息</a>
+            <a href="{{ url_for('courses_info') }}" class="list-group-item list-group-item-action">课程信息</a>
+        </div>
+
+        <a href="{{ url_for('logout') }}" class="btn btn-danger mt-3">注销</a>
+    </div>
+</body>
+</html>

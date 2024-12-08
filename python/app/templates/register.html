@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册 - 学生信息管理系统</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            background-image: url('/static/images/background.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+        }
+        .register-container {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .register-container h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .register-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .register-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .register-container .error {
+            color: red;
+            font-size: 0.9em;
+            display: none; /* 默认隐藏错误信息 */
+        }
+        .register-container button {
+            width: 48%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .register-container button.submit {
+            background-color: #007bff;
+            color: white;
+        }
+        .register-container button.cancel {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="register-container">
+    <h2>注册 - 学生信息管理系统</h2>
+    <!-- 表单 -->
+    <form method="POST" action="/register">
+        <label for="username">用户名:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">密码:</label>
+        <input type="password" id="password" name="password" required minlength="6">
+
+        <label for="confirm_password">确认密码:</label>
+        <input type="password" id="confirm_password" name="confirm_password" required minlength="6">
+
+        <!-- 错误提示区域 -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="error">
+                    {% for category, message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- 按钮 -->
+        <div style="display: flex; justify-content: space-between;">
+            <button type="submit" class="submit">注册</button>
+            <button type="button" class="cancel" onclick="onCancelClicked()">取消</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // 取消按钮点击事件
+    function onCancelClicked() {
+        window.location.href = '/'; // 返回到登录页面
+    }
+
+    // 注册成功后，跳转到登录页面
+    window.onload = function() {
+        const flashMessages = document.querySelector('.error');
+        if (flashMessages) {
+            setTimeout(function() {
+                window.location.href = '/'; // 注册成功后跳转到登录页面
+            }, 2000); // 延时2秒后跳转
+        }
+    };
+</script>
+
+</body>
+</html>
