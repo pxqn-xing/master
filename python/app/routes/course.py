@@ -20,9 +20,9 @@ def add_course():
         course_name = request.form['course_name']
         description = request.form['description']
         credits = request.form['credits']
-        teacher_id = request.form['teacher_id']
+        teachername = request.form['teachername']
 
-        new_course = Course(course_name=course_name, description=description, credits=credits, teacher_id=teacher_id)
+        new_course = Course(course_name=course_name, description=description, credits=credits, teachername=teachername)
 
         try:
             db.session.add(new_course)

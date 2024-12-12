@@ -45,7 +45,7 @@
                     <td>{{ course.course_name }}</td>
                     <td>{{ course.description or '无' }}</td>
                     <td>{{ course.credits }}</td>
-                    <td>{{ course.teacher.name if course.teacher else '无' }}</td>
+                    <td>{{ course.teachername or '无' }}</td>
                     <td>
                         <a href="{{ url_for('course.edit_course', course_id=course.course_id) }}" class="btn btn-warning btn-sm">修改</a>
                         <a href="{{ url_for('course.delete_course', course_id=course.course_id) }}" class="btn btn-danger btn-sm" onclick="return confirmDelete()">删除</a>

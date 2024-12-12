@@ -22,7 +22,6 @@ class Student(db.Model):
     academy = db.Column(db.String(100), nullable=False)
     major = db.Column(db.String(100), nullable=False)
 
-
 # 教师模型
 class Teacher(db.Model):
     __tablename__ = 'teachers'
@@ -39,8 +38,10 @@ class Course(db.Model):
     course_name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text)
     credits = db.Column(db.Integer, nullable=False)
-    teacher_id = db.Column(db.Integer, db.ForeignKey('teachers.teacher_id'))  # 外键
-    teacher = db.relationship('Teacher', backref=db.backref('courses', lazy=True))
+    teachername = db.Column(db.String(100), nullable=True)
+    # 移除了 teacher_id 字段和外键关系
+    # 这里没有 teacher_id 字段，表示课程不再与教师关联
+    # 如果需要与教师关联，可以通过其他方式来实现，例如教师-课程关联表
 
 # 成绩模型
 class Grade(db.Model):
