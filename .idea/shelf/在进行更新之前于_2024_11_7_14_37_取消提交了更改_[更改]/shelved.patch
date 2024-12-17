@@ -1,0 +1,194 @@
+Index: .idea/master.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"PYTHON_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\">\r\n    <content url=\"file://$MODULE_DIR$\" />\r\n    <orderEntry type=\"jdk\" jdkName=\"Python 3.11\" jdkType=\"Python SDK\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/master.iml b/.idea/master.iml
+--- a/.idea/master.iml	(revision e5bd5feac475f0ae2404fa6a96d2bf119d9d7a9e)
++++ b/.idea/master.iml	(date 1730894608948)
+@@ -1,8 +1,10 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <module type="PYTHON_MODULE" version="4">
+   <component name="NewModuleRootManager">
+-    <content url="file://$MODULE_DIR$" />
+-    <orderEntry type="jdk" jdkName="Python 3.11" jdkType="Python SDK" />
++    <content url="file://$MODULE_DIR$">
++      <excludeFolder url="file://$MODULE_DIR$/venv" />
++    </content>
++    <orderEntry type="jdk" jdkName="Python 3.12" jdkType="Python SDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+ </module>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"Black\">\r\n    <option name=\"sdkName\" value=\"Python 3.12\" />\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" project-jdk-name=\"Python 3.11\" project-jdk-type=\"Python SDK\" />\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision e5bd5feac475f0ae2404fa6a96d2bf119d9d7a9e)
++++ b/.idea/misc.xml	(date 1730894608961)
+@@ -3,5 +3,5 @@
+   <component name="Black">
+     <option name="sdkName" value="Python 3.12" />
+   </component>
+-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11" project-jdk-type="Python SDK" />
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12" project-jdk-type="Python SDK" />
+ </project>
+\ No newline at end of file
+Index: python/app.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from flask import Flask, render_template, request, redirect, url_for, flash, session\r\nimport mysql.connector\r\nfrom mysql.connector import Error\r\n\r\napp = Flask(__name__)\r\napp.secret_key = 'your_secret_key'  # 用于会话管理（登录状态等）\r\n\r\n# 连接数据库函数\r\ndef get_db_connection():\r\n    conn = mysql.connector.connect(\r\n        host='localhost',          # 数据库主机\r\n        user='your_username',      # 数据库用户名\r\n        password='your_password',  # 数据库密码\r\n        database='your_database'   # 数据库名称\r\n    )\r\n    return conn\r\n\r\n# 首页路由（显示用户列表）\r\n@app.route('/')\r\ndef home():\r\n    if 'user_id' in session:\r\n        conn = get_db_connection()\r\n        cursor = conn.cursor(dictionary=True)\r\n        cursor.execute('SELECT * FROM users')\r\n        users = cursor.fetchall()\r\n        conn.close()\r\n        return render_template('home.html', users=users)\r\n    else:\r\n        return redirect(url_for('login'))\r\n\r\n# 登录路由\r\n@app.route('/login', methods=['GET', 'POST'])\r\ndef login():\r\n    if request.method == 'POST':\r\n        username = request.form['username']\r\n        password = request.form['password']\r\n\r\n        # 查询数据库检查用户\r\n        conn = get_db_connection()\r\n        cursor = conn.cursor(dictionary=True)\r\n        cursor.execute('SELECT * FROM users WHERE username = %s AND password = %s', (username, password))\r\n        user = cursor.fetchone()\r\n        conn.close()\r\n\r\n        if user:\r\n            session['user_id'] = user['id']  # 登录成功，保存用户 ID 到 session\r\n            return redirect(url_for('home'))\r\n        else:\r\n            flash('Invalid username or password!')\r\n            return redirect(url_for('login'))\r\n\r\n    return render_template('login.html')\r\n\r\n# 注册路由\r\n@app.route('/register', methods=['GET', 'POST'])\r\ndef register():\r\n    if request.method == 'POST':\r\n        username = request.form['username']\r\n        password = request.form['password']\r\n\r\n        # 检查用户名是否已存在\r\n        conn = get_db_connection()\r\n        cursor = conn.cursor(dictionary=True)\r\n        cursor.execute('SELECT * FROM users WHERE username = %s', (username,))\r\n        existing_user = cursor.fetchone()\r\n\r\n        if existing_user:\r\n            flash('Username already exists!')\r\n            return redirect(url_for('register'))\r\n\r\n        # 插入新用户\r\n        cursor.execute('INSERT INTO users (username, password) VALUES (%s, %s)', (username, password))\r\n        conn.commit()\r\n        conn.close()\r\n\r\n        flash('Registration successful! Please log in.')\r\n        return redirect(url_for('login'))\r\n\r\n    return render_template('register.html')\r\n\r\n# 退出登录路由\r\n@app.route('/logout')\r\ndef logout():\r\n    session.pop('user_id', None)\r\n    return redirect(url_for('login'))\r\n\r\nif __name__ == '__main__':\r\n    app.run(debug=True)\r\n
+===================================================================
+diff --git a/python/app.py b/python/app.py
+--- a/python/app.py	(revision e5bd5feac475f0ae2404fa6a96d2bf119d9d7a9e)
++++ b/python/app.py	(date 1730896865471)
+@@ -1,87 +1,85 @@
+ from flask import Flask, render_template, request, redirect, url_for, flash, session
+-import mysql.connector
+-from mysql.connector import Error
++from werkzeug.security import generate_password_hash, check_password_hash
++import pymysql
+ 
+ app = Flask(__name__)
+-app.secret_key = 'your_secret_key'  # 用于会话管理（登录状态等）
++app.secret_key = 'your_secret_key'  # 设置 session 密钥
+ 
+-# 连接数据库函数
++# 数据库连接配置
+ def get_db_connection():
+-    conn = mysql.connector.connect(
+-        host='localhost',          # 数据库主机
+-        user='your_username',      # 数据库用户名
+-        password='your_password',  # 数据库密码
+-        database='your_database'   # 数据库名称
++    connection = pymysql.connect(
++        host='localhost',
++        user='root',
++        password='your_password',  # 请替换为你的 MySQL 密码
++        database='students_inf'
+     )
+-    return conn
++    return connection
++
++# 用户注册
++@app.route('/register', methods=['GET', 'POST'])
++def register():
++    if request.method == 'POST':
++        username = request.form['username']
++        password = request.form['password']
++        hashed_password = generate_password_hash(password)
+ 
+-# 首页路由（显示用户列表）
+-@app.route('/')
+-def home():
+-    if 'user_id' in session:
+-        conn = get_db_connection()
+-        cursor = conn.cursor(dictionary=True)
+-        cursor.execute('SELECT * FROM users')
+-        users = cursor.fetchall()
+-        conn.close()
+-        return render_template('home.html', users=users)
+-    else:
++        # 将用户信息插入数据库
++        connection = get_db_connection()
++        cursor = connection.cursor()
++        cursor.execute("INSERT INTO Users (username, password) VALUES (%s, %s)", (username, hashed_password))
++        connection.commit()
++        cursor.close()
++        connection.close()
++
++        flash('Registration successful! Please log in.')
+         return redirect(url_for('login'))
+ 
+-# 登录路由
++    return render_template('register.html')
++
++# 用户登录
+ @app.route('/login', methods=['GET', 'POST'])
+ def login():
+     if request.method == 'POST':
+         username = request.form['username']
+         password = request.form['password']
+ 
+-        # 查询数据库检查用户
+-        conn = get_db_connection()
+-        cursor = conn.cursor(dictionary=True)
+-        cursor.execute('SELECT * FROM users WHERE username = %s AND password = %s', (username, password))
++        # 检查用户是否存在
++        connection = get_db_connection()
++        cursor = connection.cursor(dictionary=True)
++        cursor.execute("SELECT * FROM Users WHERE username = %s", (username,))
+         user = cursor.fetchone()
+-        conn.close()
++        cursor.close()
++        connection.close()
+ 
+-        if user:
+-            session['user_id'] = user['id']  # 登录成功，保存用户 ID 到 session
++        if user and check_password_hash(user['password'], password):
++            session['user_id'] = user['id']
+             return redirect(url_for('home'))
+-        else:
+-            flash('Invalid username or password!')
+-            return redirect(url_for('login'))
++
++        flash('Invalid credentials. Please try again.')
++        return redirect(url_for('login'))
+ 
+     return render_template('login.html')
+ 
+-# 注册路由
+-@app.route('/register', methods=['GET', 'POST'])
+-def register():
+-    if request.method == 'POST':
+-        username = request.form['username']
+-        password = request.form['password']
+-
+-        # 检查用户名是否已存在
+-        conn = get_db_connection()
+-        cursor = conn.cursor(dictionary=True)
+-        cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
+-        existing_user = cursor.fetchone()
+-
+-        if existing_user:
+-            flash('Username already exists!')
+-            return redirect(url_for('register'))
+-
+-        # 插入新用户
+-        cursor.execute('INSERT INTO users (username, password) VALUES (%s, %s)', (username, password))
+-        conn.commit()
+-        conn.close()
+-
+-        flash('Registration successful! Please log in.')
++# 用户主页，显示当前用户信息
++@app.route('/home')
++def home():
++    if 'user_id' not in session:
+         return redirect(url_for('login'))
+ 
+-    return render_template('register.html')
++    # 获取所有用户列表
++    connection = get_db_connection()
++    cursor = connection.cursor(dictionary=True)
++    cursor.execute("SELECT id, username FROM Users")
++    users = cursor.fetchall()
++    cursor.close()
++    connection.close()
+ 
+-# 退出登录路由
++    return render_template('home.html', users=users)
++
++# 用户注销
+ @app.route('/logout')
+ def logout():
+-    session.pop('user_id', None)
++    session.pop('user_id', None)  # 清除 session 中的用户信息
+     return redirect(url_for('login'))
+ 
+ if __name__ == '__main__':

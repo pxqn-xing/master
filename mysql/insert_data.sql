@@ -114,41 +114,41 @@ INSERT INTO Majors (major_name) VALUES
 ('旅游管理'), 
 ('国际文化与传媒');
 
-INSERT INTO Teachers (name, gender, date_of_birth, contact_no, email, academy) VALUES
-('张伟', '男', '1980-05-12', '13812345678', 'zhangwei@example.com', '计算机学院'),
-('李婷', '女', '1979-08-23', '13912345679', 'liting@example.com', '电子工程学院'),
-('王磊', '男', '1985-01-10', '13712345680', 'wanglei@example.com', '自动化学院'),
-('赵强', '男', '1982-11-30', '13612345681', 'zhaoqiang@example.com', '通信工程学院'),
-('孙丽', '女', '1990-02-15', '13512345682', 'sunli@example.com', '土木工程学院'),
-('陈浩', '男', '1988-07-20', '13412345683', 'chenhao@example.com', '建筑学院'),
-('杨静', '女', '1992-06-11', '13312345684', 'yangjing@example.com', '环境科学学院'),
-('刘峰', '男', '1984-03-05', '13212345685', 'liufeng@example.com', '生物医学工程学院'),
-('吴刚', '男', '1977-12-22', '13112345686', 'wugang@example.com', '法学院'),
-('郑华', '男', '1981-09-13', '13012345687', 'zhenghua1@example.com', '商学院'),
-('许晨', '女', '1989-01-09', '12912345688', 'xuchen@example.com', '外国语学院'),
-('高超', '男', '1983-04-18', '12812345689', 'gaochao@example.com', '新闻与传媒学院'),
-('何敏', '女', '1987-11-30', '12712345690', 'hemin@example.com', '社会学院'),
-('刘畅', '男', '1991-02-01', '12612345691', 'liuchang@example.com', '心理学院'),
-('冯伟', '男', '1986-05-25', '12512345692', 'fengwei@example.com', '理学院'),
-('朱莹', '女', '1994-06-17', '12412345693', 'zhuying@example.com', '化学学院'),
-('张丽', '女', '1985-04-11', '12312345694', 'zhangli@example.com', '生物学院'),
-('蒋涛', '男', '1982-08-14', '12212345695', 'jiangtao@example.com', '数学与统计学院'),
-('周强', '男', '1983-12-03', '12112345696', 'zhouqiang@example.com', '统计学院'),
-('梁飞', '男', '1978-10-01', '12012345697', 'liangfei@example.com', '机械学院'),
-('贾慧', '女', '1989-01-21', '11912345698', 'jiahui@example.com', '材料学院'),
-('钱伟', '男', '1984-06-08', '11812345699', 'qianwei@example.com', '能源与动力工程学院'),
-('田林', '男', '1991-07-13', '11712345700', 'tianlin@example.com', '环境工程学院'),
-('李俊', '男', '1980-09-04', '11612345701', 'lijun@example.com', '计算机学院'),
-('曹彬', '男', '1987-10-10', '11512345702', 'caobin@example.com', '机械工程学院'),
-('胡雪', '女', '1993-01-19', '11412345703', 'huxue@example.com', '交通学院'),
-('肖荣', '男', '1986-04-23', '11312345704', 'xiaorong@example.com', '航空航天学院'),
-('赵鹏', '男', '1982-11-29', '11212345705', 'zhaopeng@example.com', '化学工程学院'),
-('郑华', '男', '1980-03-12', '11112345706', 'zhenghua2@example.com', '核工程学院'),
-('邱琦', '男', '1988-06-15', '11012345707', 'qiuchi@example.com', '地理与环境学院'),
-('何杰', '男', '1992-09-20', '10912345708', 'hejie@example.com', '地质学院'),
-('江浩', '男', '1981-11-02', '10812345709', 'jianghao@example.com', '新能源与环境学院'),
-('谢琼', '女', '1986-12-22', '10712345710', 'xieqiong@example.com', '生态学院'),
-('陈林', '男', '1990-03-10', '10612345711', 'chenlin@example.com', '社会学院');
+INSERT INTO Teachers (name, gender,  email, academy) VALUES
+('张伟', '男',  'zhangwei@example.com', '计算机学院'),
+('李婷', '女',   'liting@example.com', '电子工程学院'),
+('王磊', '男',   'wanglei@example.com', '自动化学院'),
+('赵强', '男',   'zhaoqiang@example.com', '通信工程学院'),
+('孙丽', '女',   'sunli@example.com', '土木工程学院'),
+('陈浩', '男',  'chenhao@example.com', '建筑学院'),
+('杨静', '女',   'yangjing@example.com', '环境科学学院'),
+('刘峰', '男',  'liufeng@example.com', '生物医学工程学院'),
+('吴刚', '男',   'wugang@example.com', '法学院'),
+('郑华', '男',  'zhenghua1@example.com', '商学院'),
+('许晨', '女',   'xuchen@example.com', '外国语学院'),
+('高超', '男',  'gaochao@example.com', '新闻与传媒学院'),
+('何敏', '女',   'hemin@example.com', '社会学院'),
+('刘畅', '男',   'liuchang@example.com', '心理学院'),
+('冯伟', '男',   'fengwei@example.com', '理学院'),
+('朱莹', '女',  'zhuying@example.com', '化学学院'),
+('张丽', '女',   'zhangli@example.com', '生物学院'),
+('蒋涛', '男',   'jiangtao@example.com', '数学与统计学院'),
+('周强', '男',   'zhouqiang@example.com', '统计学院'),
+('梁飞', '男',   'liangfei@example.com', '机械学院'),
+('贾慧', '女',   'jiahui@example.com', '材料学院'),
+('钱伟', '男',   'qianwei@example.com', '能源与动力工程学院'),
+('田林', '男',  'tianlin@example.com', '环境工程学院'),
+('李俊', '男',   'lijun@example.com', '计算机学院'),
+('曹彬', '男',   'caobin@example.com', '机械工程学院'),
+('胡雪', '女',   'huxue@example.com', '交通学院'),
+('肖荣', '男',   'xiaorong@example.com', '航空航天学院'),
+('赵鹏', '男',   'zhaopeng@example.com', '化学工程学院'),
+('郑华', '男',   'zhenghua2@example.com', '核工程学院'),
+('邱琦', '男',   'qiuchi@example.com', '地理与环境学院'),
+('何杰', '男',   'hejie@example.com', '地质学院'),
+('江浩', '男',   'jianghao@example.com', '新能源与环境学院'),
+('谢琼', '女',   'xieqiong@example.com', '生态学院'),
+('陈林', '男',   'chenlin@example.com', '社会学院');
 
 -- 插入 TempGrades 表数据
 INSERT INTO TempGrades (student_id, course_id) VALUES
@@ -198,10 +198,7 @@ INSERT INTO TempGrades (student_id, course_id) VALUES
 (44, 4),
 (45, 5),
 (46, 6),
-(47, 7),
-(48, 8),
-(49, 9),
-(50, 10);
+(47, 7);
 
 -- 插入 Grades 表数据
 INSERT INTO Grades (student_id, course_id, grade, date_graded) VALUES
@@ -251,10 +248,7 @@ INSERT INTO Grades (student_id, course_id, grade, date_graded) VALUES
 (44, 4, 88.5, '2024-07-09'),
 (45, 5, 79.5, '2024-07-09'),
 (46, 6, 91.5, '2024-07-10'),
-(47, 7, 85.0, '2024-07-10'),
-(48, 8, 89.0, '2024-07-11'),
-(49, 9, 86.0, '2024-07-11'),
-(50, 10, 94.5, '2024-07-12');
+(47, 7, 85.0, '2024-07-10');
 
 INSERT INTO Students (name, gender, date_of_birth, contact_no, email, enrollment_date, academy, major) VALUES
 ('李明', '男', '2000-01-15', '13812345678', 'liming@example.com', '2018-09-01', '计算机学院', '计算机科学与技术'),

@@ -70,7 +70,6 @@ CREATE TABLE TempGrades (
     FOREIGN KEY (course_id) REFERENCES Courses(course_id) ON DELETE CASCADE ON UPDATE CASCADE  -- 外键约束，关联到Courses表
 );
 
-
 CREATE TABLE Root (
     id INT NOT NULL AUTO_INCREMENT,  -- 用户ID
     username VARCHAR(50) NOT NULL,  -- 用户名
