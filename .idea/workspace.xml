@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2d1e70a-ae79-4edd-af70-e950646f4e58" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/master.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/master.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql/create_students_inf.sql" beforeDir="false" afterPath="$PROJECT_DIR$/mysql/create_students_inf.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysql/insert_data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/mysql/insert_data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/app/routes/student.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/app/routes/student.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/app/routes/teacher.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/app/routes/teacher.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,12 +30,12 @@
     &quot;assignee&quot;: &quot;pxqn-xing&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/pxqn-xing/master.git&quot;,
-    &quot;accountId&quot;: &quot;e44528c3-55a5-4e88-83db-c8f89d26a621&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/pxqn-xing/master.git",
+    "accountId": "7a1609be-bab0-409a-9285-7dc3da28aed4"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>

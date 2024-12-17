@@ -2,6 +2,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from ..models import Student, db
 from datetime import datetime
+from sqlalchemy.orm import aliased
+from sqlalchemy import or_
 
 student_bp = Blueprint('student', __name__)
 
@@ -104,7 +106,13 @@ def search_students():
     if search_query.isdigit():
         students_paginate = Student.query.filter(Student.student_id == int(search_query))
     else:
-        students_paginate = Student.query.filter(Student.name.contains(search_query))
+        students_paginate = Student.query.filter(
+            or_(
+                Student.name.contains(search_query),  # 按学生姓名查找
+                Student.academy.contains(search_query),  # 按学院查找
+                Student.major.contains(search_query)  # 按专业查找
+            )
+        )
 
     # 添加分页功能
     page = request.args.get('page', 1, type=int)

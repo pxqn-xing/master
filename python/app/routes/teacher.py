@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from ..models import Teacher, db
+from sqlalchemy.orm import aliased
+from sqlalchemy import or_
 
 teacher_bp = Blueprint('teacher', __name__)
 
@@ -94,7 +96,12 @@ def search_teachers():
     if search_query.isdigit():
         teachers_paginate = Teacher.query.filter(Teacher.teacher_id == int(search_query))
     else:
-        teachers_paginate = Teacher.query.filter(Teacher.name.contains(search_query))
+        teachers_paginate = Teacher.query.filter(
+            or_(
+                Teacher.name.contains(search_query),
+                Teacher.academy.contains(search_query)
+            )
+        )
 
     # 添加分页功能
     page = request.args.get('page', 1, type=int)
