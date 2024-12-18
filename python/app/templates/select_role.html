@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择身份 - 学生信息管理系统</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            background-image: url('/static/images/background.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+        }
+        .role-selection-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+        .role-selection-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .role-selection-container button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        .super-admin {
+            background-color: #007bff;
+            color: white;
+        }
+        .admin {
+            background-color: #28a745;
+            color: white;
+        }
+    </style>
+    <script>
+        // JavaScript function to handle button clicks
+        function redirectToLogin(role) {
+            if (role === 'superadmin') {
+                window.location.href = '/login_superadmin';  // 跳转到超级管理员登录页面
+            } else if (role === 'admin') {
+                window.location.href = '/login';  // 跳转到管理员登录页面
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="role-selection-container">
+    <h2>请选择身份</h2>
+    <button class="super-admin" onclick="redirectToLogin('superadmin')">超级管理员</button>
+    <button class="admin" onclick="redirectToLogin('admin')">管理员</button>
+</div>
+
+</body>
+</html>

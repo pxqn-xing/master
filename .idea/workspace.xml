@@ -5,9 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2d1e70a-ae79-4edd-af70-e950646f4e58" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/python/app/routes/root.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/python/app/templates/admins_info.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/python/app/templates/edit_admin.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/python/app/templates/login_superadmin.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/python/app/templates/select_role.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python/app/routes/student.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/app/routes/student.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python/app/routes/teacher.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/app/routes/teacher.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/app/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/app/routes/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/app/routes/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/app/templates/courses_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/python/app/templates/courses_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/app/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/python/app/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/app/templates/students_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/python/app/templates/students_info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/app/templates/teachers_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/python/app/templates/teachers_info.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +28,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -30,12 +41,12 @@
     &quot;assignee&quot;: &quot;pxqn-xing&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/pxqn-xing/master.git",
-    "accountId": "7a1609be-bab0-409a-9285-7dc3da28aed4"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/pxqn-xing/master.git&quot;,
+    &quot;accountId&quot;: &quot;7a1609be-bab0-409a-9285-7dc3da28aed4&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -75,5 +86,16 @@
       <updated>1733154934163</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

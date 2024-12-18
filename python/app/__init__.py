@@ -22,11 +22,13 @@ def create_app():
     from .routes.teacher import teacher_bp
     from .routes.course import course_bp
     from .routes.grade import grade_bp
+    from .routes.root import root_bp  # 根路由在这里导入
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(student_bp)
     app.register_blueprint(teacher_bp)
     app.register_blueprint(course_bp)
     app.register_blueprint(grade_bp)
+    app.register_blueprint(root_bp)
 
     return app

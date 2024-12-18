@@ -30,6 +30,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>教师ID</th>
                     <th>姓名</th>
                     <th>性别</th>
@@ -38,9 +39,10 @@
                     <th>操作</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="teacher-list">
                 {% for teacher in teachers %}
                 <tr>
+                    <td class="teacher-index"></td> <!-- 动态显示编号 -->
                     <td>{{ teacher.teacher_id }}</td>
                     <td>{{ teacher.name }}</td>
                     <td>{{ teacher.gender }}</td>
@@ -93,6 +95,26 @@
         function confirmDelete() {
             return confirm("确认要删除此教师信息?");
         }
+
+        // 动态更新教师编号
+        function updateTeacherIndexes() {
+            const rows = document.querySelectorAll("#teacher-list tr");
+            rows.forEach((row, index) => {
+                row.querySelector(".teacher-index").textContent = index + 1;
+            });
+        }
+
+        // 每次删除后更新编号
+        $(document).on('click', '.btn-danger', function() {
+            const row = $(this).closest('tr');
+            row.remove(); // 删除该行
+            updateTeacherIndexes(); // 更新剩余行的编号
+        });
+
+        // 页面加载时更新所有教师编号
+        $(document).ready(function() {
+            updateTeacherIndexes();
+        });
     </script>
 </body>
 </html>

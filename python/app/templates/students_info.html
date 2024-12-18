@@ -30,6 +30,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>学号</th>
                     <th>姓名</th>
                     <th>性别</th>
@@ -39,9 +40,10 @@
                     <th>操作</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="student-list">
                 {% for student in students %}
                 <tr>
+                    <td class="student-index"></td> <!-- 动态显示编号 -->
                     <td>{{ student.student_id }}</td>
                     <td>{{ student.name }}</td>
                     <td>{{ student.gender }}</td>
@@ -95,6 +97,26 @@
         function confirmDelete() {
             return confirm("确认要删除此学生信息?");
         }
+
+        // 动态更新学生编号
+        function updateStudentIndexes() {
+            const rows = document.querySelectorAll("#student-list tr");
+            rows.forEach((row, index) => {
+                row.querySelector(".student-index").textContent = index + 1;
+            });
+        }
+
+        // 每次删除后更新编号
+        $(document).on('click', '.btn-danger', function() {
+            const row = $(this).closest('tr');
+            row.remove(); // 删除该行
+            updateStudentIndexes(); // 更新剩余行的编号
+        });
+
+        // 页面加载时更新所有学生编号
+        $(document).ready(function() {
+            updateStudentIndexes();
+        });
     </script>
 </body>
 </html>

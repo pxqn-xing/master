@@ -30,6 +30,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>课程ID</th>
                     <th>课程名称</th>
                     <th>课程描述</th>
@@ -38,9 +39,10 @@
                     <th>操作</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="course-list">
                 {% for course in courses %}
                 <tr>
+                    <td class="course-index"></td> <!-- 动态显示编号 -->
                     <td>{{ course.course_id }}</td>
                     <td>{{ course.course_name }}</td>
                     <td>{{ course.description or '无' }}</td>
@@ -93,6 +95,26 @@
         function confirmDelete() {
             return confirm("确认要删除此课程信息?");
         }
+
+        // 动态更新课程编号
+        function updateCourseIndexes() {
+            const rows = document.querySelectorAll("#course-list tr");
+            rows.forEach((row, index) => {
+                row.querySelector(".course-index").textContent = index + 1;
+            });
+        }
+
+        // 每次删除后更新编号
+        $(document).on('click', '.btn-danger', function() {
+            const row = $(this).closest('tr');
+            row.remove(); // 删除该行
+            updateCourseIndexes(); // 更新剩余行的编号
+        });
+
+        // 页面加载时更新所有课程编号
+        $(document).ready(function() {
+            updateCourseIndexes();
+        });
     </script>
 </body>
 </html>

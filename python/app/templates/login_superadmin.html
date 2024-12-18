@@ -79,7 +79,7 @@
 <body>
 
 <div class="login-container">
-    <h2>登录 - 学生信息管理系统</h2>
+    <h2>超级管理员登录 - 学生信息管理系统</h2>
     <form onsubmit="onLoginClicked(event)">
         <label for="username">用户名:</label>
         <input type="text" id="username" name="username" placeholder="请输入用户名" required>
@@ -91,7 +91,6 @@
             <button type="submit" class="login">登录</button>
             <button type="button" class="cancel" onclick="onCancelClicked()">取消</button>
         </div>
-        <button type="button" class="register" onclick="onRegisterClicked()">注册</button>
     </form>
 </div>
 
@@ -111,14 +110,15 @@
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ username, password, role: 'admin' }),  // 发送管理员角色
+            body: JSON.stringify({ username, password, role: 'superadmin' }),  // 发送超级管理员角色
         })
         .then(response => response.json())
         .then(data => {
             console.log(data);
             if (data.success) {
                 alert('登录成功！');
-                window.location.href = '/students';
+                // 登录成功后跳转到管理员信息列表页面
+                window.location.href = '/admins';  // 修改为跳转到管理员管理页面
             } else {
                 alert(data.message || '登录失败，请检查用户名或密码！');
             }
@@ -131,10 +131,6 @@
 
     function onCancelClicked() {
         window.location.reload();
-    }
-
-    function onRegisterClicked() {
-        window.location.href = '/register';
     }
 </script>
 
